@@ -1,17 +1,14 @@
 import requests
-from flask import Flask,render_template as rt
+from flask import Flask,render_template as rt,request
 from calcular import calcular
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/",methods = ['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        return calcular()
     return rt("calculadora.html", etapas = '', resultados = '')
-
-
-@app.route("/calcular", methods = ['POST'])
-def calcular_route():
-    return calcular()
     
 
 if __name__ == "__main__":
